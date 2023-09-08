@@ -1,10 +1,12 @@
 import { css } from "@emotion/css";
+import { Transforms } from "slate";
 import {
   ReactEditor,
   useFocused,
   useSelected,
   useSlateStatic,
 } from "slate-react";
+import { Button, Icon } from "~/componet/components";
 
 const Image = ({ attributes, children, element }) => {
   const editor = useSlateStatic();
@@ -30,6 +32,19 @@ const Image = ({ attributes, children, element }) => {
             box-shadow: ${selected && focused ? "0 0 0 3px #B4D5FF" : "none"};
           `}
         />
+        <Button
+          active
+          onClick={() => Transforms.removeNodes(editor, { at: path })}
+          className={css`
+            display: ${selected && focused ? "inline" : "none"};
+            position: absolute;
+            top: 0.5em;
+            left: 0.5em;
+            background-color: white;
+          `}
+        >
+          <Icon>delete</Icon>
+        </Button>
       </div>
     </div>
   );

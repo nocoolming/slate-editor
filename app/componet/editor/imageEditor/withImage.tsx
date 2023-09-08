@@ -1,6 +1,5 @@
 import { insertImage } from "./insertImage";
-import imageExtensions from "image-extensions";
-import isUrl from "is-url";
+import { isImageUrl } from "./isImageUrl";
 
 export const withImage = (editor) => {
   const { insertData, isVoid } = editor;
@@ -29,15 +28,4 @@ export const withImage = (editor) => {
       insertData(data);
     }
   };
-};
-
-const isImageUrl = (url) => {
-  if (!url) {
-    return false;
-  }
-  if (!isUrl(url)) {
-    return false;
-  }
-  const ext = new URL(url).pathname.split(".").pop();
-  return imageExtensions;
 };
