@@ -1,5 +1,6 @@
 import { Transforms } from "slate";
-import { ImageElement } from "../custom-types";
+import type { ImageElement } from "../custom-types";
+
 
 export const insertImage = (editor, url) => {
   const text = { text: "" };
