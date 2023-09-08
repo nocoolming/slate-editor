@@ -8,6 +8,7 @@ export const isImageUrl = (url) => {
   if (!isUrl(url)) {
     return false;
   }
-  const ext = new URL(url).pathname.split(".").pop();
+  const ext = new URL(url).pathname.split('.').pop();
+  console.log(`ext: ${ext}`)
   return imageExtensions.includes(ext);
 };

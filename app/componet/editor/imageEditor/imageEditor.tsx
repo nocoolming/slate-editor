@@ -1,17 +1,18 @@
 import { useMemo } from "react";
 import { Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
-import { withImage } from "./withImage";
+import { withImages } from "./withImage";
 import { Editable, Slate, withReact } from "slate-react";
 import { Toolbar } from "~/componet/components";
 import InsertImageButton from "./insertImageButton";
 import isHotkey from "is-hotkey";
+import Element from "../element";
 
 const ImageSlateEditor = () => {
   const editor = useMemo(
-    () => withImage(withHistory(withReact(createEditor()))),
+    () => withImages(withHistory(withReact(createEditor()))),
     []
-  );
+  )
 
   return (
     <Slate editor={editor} initialValue={initialValue}>

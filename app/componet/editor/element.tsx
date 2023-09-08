@@ -1,3 +1,4 @@
+import Image from "./imageEditor/image";
 const Element = (props) => {
   const { attributes, children, element } = props;
 

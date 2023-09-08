@@ -1,8 +1,12 @@
 import { insertImage } from "./insertImage";
 import { isImageUrl } from "./isImageUrl";
 
-export const withImage = (editor) => {
+export const withImages = (editor) => {
   const { insertData, isVoid } = editor;
+
+  editor.isVoid = element => {
+    return element.type === 'image' ? true : isVoid(element);
+  }
 
   editor.insertData = (data) => {
     const text = data.getData("text/plain");
@@ -28,4 +32,6 @@ export const withImage = (editor) => {
       insertData(data);
     }
   };
+
+  return editor
 };
