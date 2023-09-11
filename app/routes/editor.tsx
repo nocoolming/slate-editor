@@ -6,7 +6,6 @@ import RichTextEditor from "~/componet/editor/richText/richTextEditor";
 export default function Edtior() {
   return (
     <>
-      <RichTextEditor />
       <MingEditor />
     </>
   );

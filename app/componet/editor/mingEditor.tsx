@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { withImages } from "./imageEditor/withImage";
 import { withHistory } from "slate-history";
 import { Editable, Slate, withReact } from "slate-react";
@@ -7,8 +7,16 @@ import { Toolbar } from "../components";
 import InsertImageButton from "./imageEditor/insertImageButton";
 import isHotkey from "is-hotkey";
 import Element from "./element";
+import Leaf from "./richText/leaf";
+import MarkButton from "./richText/markButton";
+import BlockButton from "./richText/blockButton";
+import HOTKEYS from "./richText/hotkeys";
+import toggleMark from "./richText/toggleMark";
 
 const MingEditor = () => {
+  const renderElement = useCallback((props) => <Element {...props} />, []);
+  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
+
   const editor = useMemo(
     () => withImages(withHistory(withReact(createEditor()))),
     []
@@ -17,6 +25,19 @@ const MingEditor = () => {
   return (
     <Slate editor={editor} initialValue={initialValue}>
       <Toolbar>
+        <MarkButton format="bold" icon="format_bold" />
+        <MarkButton format="italic" icon="format_italic" />
+        <MarkButton format="underline" icon="format_underlined" />
+        <MarkButton format="code" icon="code" />
+        <BlockButton format="heading-one" icon="looks_one" />
+        <BlockButton format="heading-two" icon="looks_two" />
+        <BlockButton format="block-quote" icon="format_quote" />
+        <BlockButton format="numbered-list" icon="format_list_numbered" />
+        <BlockButton format="bulleted-list" icon="format_list_bulleted" />
+        <BlockButton format="left" icon="format_align_left" />
+        <BlockButton format="center" icon="format_align_center" />
+        <BlockButton format="right" icon="format_align_right" />
+        <BlockButton format="justify" icon="format_align_justify" />
         <InsertImageButton />
       </Toolbar>
       <Editable
@@ -24,9 +45,21 @@ const MingEditor = () => {
           if (isHotkey("mod+a", event)) {
             event.preventDefault();
             Transforms.select(editor, []);
+            return;
+          }
+
+          for (const hotkey in HOTKEYS) {
+            if (isHotkey(hotkey, event as any)) {
+              event.preventDefault();
+              const mark = HOTKEYS[hotkey];
+              toggleMark(editor, mark);
+            }
           }
         }}
-        renderElement={(props) => <Element {...props} />}
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        spellCheck
+        autoFocus
         placeholder="Enter some text..."
       />
     </Slate>

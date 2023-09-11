@@ -9,13 +9,7 @@ import MarkButton from "./markButton";
 import BlockButton from "./blockButton";
 import isHotkey from "is-hotkey";
 import toggleMark from "./toggleMark";
-
-const HOTKEYS = {
-  "mod+b": "bold",
-  "mod+i": "italic",
-  "mod+u": "underline",
-  "mod+`": "code",
-};
+import HOTKEYS from "./hotkeys";
 
 const RichTextEditor = () => {
   const renderElement = useCallback((props) => <Element {...props} />, []);
